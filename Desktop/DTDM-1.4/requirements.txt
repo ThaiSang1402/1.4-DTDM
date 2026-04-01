@@ -9,21 +9,11 @@ httpx==0.25.2
 # System monitoring
 psutil==5.9.6
 
-# Metrics and monitoring
-prometheus_client==0.19.0
-
 # Configuration management
 pyyaml==6.0.1
 
 # Environment variables
 python-dotenv==1.0.0
 
-# Production server
+# Production server (for backup)
 gunicorn==21.2.0
-
-# Testing framework (optional for production)
-pytest==7.4.3
-pytest-asyncio==0.21.1
-
-# Property-based testing (optional for production)
-hypothesis==6.88.1

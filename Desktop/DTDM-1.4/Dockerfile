@@ -1,24 +1,22 @@
-# Dockerfile for Render deployment (backup option)
+# Dockerfile for Load Balancer on Render
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy requirements first for better caching
+# Copy requirements and install dependencies
 COPY requirements.txt .
-
-# Install dependencies
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
 
-# Set Python path
+# Set environment
 ENV PYTHONPATH=/app
+ENV PORT=8000
 
 # Expose port
-EXPOSE 8000
+EXPOSE $PORT
 
-# Default command (can be overridden)
-CMD ["uvicorn", "scalable_ai_api.load_balancer.render_app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start Load Balancer
+CMD uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port $PORT
