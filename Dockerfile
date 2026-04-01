@@ -1,7 +1,12 @@
 # Dockerfile for Load Balancer on Render
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install dependencies
 COPY requirements.txt .
@@ -11,11 +16,12 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy application code
 COPY . .
 
-# Set environment
+# Set environment variables
 ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
 
 # Render will set PORT automatically
 EXPOSE 8000
 
 # Start Load Balancer (Render will override PORT)
-CMD ["sh", "-c", "uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
