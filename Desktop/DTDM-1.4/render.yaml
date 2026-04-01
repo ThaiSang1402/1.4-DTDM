@@ -4,7 +4,7 @@ services:
     name: scalable-ai-api-load-balancer
     runtime: python
     plan: starter
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: python -m scalable_ai_api.main --component load_balancer --port $PORT
     envVars:
       - key: LOAD_BALANCER_PORT
@@ -25,7 +25,7 @@ services:
     name: scalable-ai-api-server-a
     runtime: python
     plan: starter
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: python -m scalable_ai_api.ai_server.server_runner --server-id "Server A" --host 0.0.0.0 --port $PORT
     envVars:
       - key: SERVER_ID
@@ -38,7 +38,7 @@ services:
     name: scalable-ai-api-server-b
     runtime: python
     plan: starter
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: python -m scalable_ai_api.ai_server.server_runner --server-id "Server B" --host 0.0.0.0 --port $PORT
     envVars:
       - key: SERVER_ID
