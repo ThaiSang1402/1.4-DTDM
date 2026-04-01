@@ -1,0 +1,62 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Development files (exclude from production)
+demo_*.py
+validate_*.py
+test_*.py
+tests/
+*.log
+.env
+.env.local
+
+# Documentation (keep only essential)
+*.md
+!README.md
+
+# Docker development files
+docker-compose.yml
+docker-compose.prod.yml
+
+# Kiro specs
+.kiro/

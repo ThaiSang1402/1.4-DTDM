@@ -1,0 +1,41 @@
+services:
+  # Load Balancer Service
+  - type: web
+    name: scalable-ai-api-load-balancer
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: SERVER_A_URL
+        value: https://scalable-ai-api-server-a.onrender.com
+      - key: SERVER_B_URL
+        value: https://scalable-ai-api-server-b.onrender.com
+      - key: LOG_LEVEL
+        value: INFO
+
+  # Server A Service
+  - type: web
+    name: scalable-ai-api-server-a
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile.aiserver
+    dockerContext: .
+    envVars:
+      - key: SERVER_ID
+        value: Server A
+      - key: LOG_LEVEL
+        value: INFO
+
+  # Server B Service
+  - type: web
+    name: scalable-ai-api-server-b
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile.aiserver
+    dockerContext: .
+    envVars:
+      - key: SERVER_ID
+        value: Server B
+      - key: LOG_LEVEL
+        value: INFO
