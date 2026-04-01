@@ -13,10 +13,9 @@ COPY . .
 
 # Set environment
 ENV PYTHONPATH=/app
-ENV PORT=8000
 
-# Expose port
-EXPOSE $PORT
+# Render will set PORT automatically
+EXPOSE 8000
 
-# Start Load Balancer
-CMD uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port $PORT
+# Start Load Balancer (Render will override PORT)
+CMD ["sh", "-c", "uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port ${PORT:-8000}"]
