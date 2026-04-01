@@ -1,9 +1,8 @@
 # Procfile for Render deployment
 # This file defines how to run different components
 
-# Load Balancer
-web: python -m scalable_ai_api.main --component load_balancer --port $PORT
+# Load Balancer (default web process)
+web: uvicorn scalable_ai_api.load_balancer.render_app:app --host 0.0.0.0 --port $PORT
 
 # Alternative commands for different services:
-# Server A: python -m scalable_ai_api.main --component ai_server --server-id "Server A" --port $PORT
-# Server B: python -m scalable_ai_api.main --component ai_server --server-id "Server B" --port $PORT
+# AI Server: uvicorn scalable_ai_api.ai_server.render_app:app --host 0.0.0.0 --port $PORT
