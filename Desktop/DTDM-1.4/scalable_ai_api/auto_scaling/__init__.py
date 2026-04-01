@@ -1,0 +1,1 @@
+"""Auto Scaling module for dynamic server instance management."""

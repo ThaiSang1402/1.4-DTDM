@@ -1,0 +1,9 @@
+# Procfile for Render deployment
+# This file defines how to run different components
+
+# Load Balancer
+web: python -m scalable_ai_api.main --component load_balancer --port $PORT
+
+# Alternative commands for different services:
+# Server A: python -m scalable_ai_api.main --component ai_server --server-id "Server A" --port $PORT
+# Server B: python -m scalable_ai_api.main --component ai_server --server-id "Server B" --port $PORT

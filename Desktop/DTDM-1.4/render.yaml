@@ -1,0 +1,47 @@
+services:
+  # Load Balancer Service
+  - type: web
+    name: scalable-ai-api-load-balancer
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m scalable_ai_api.main --component load_balancer --port $PORT
+    envVars:
+      - key: LOAD_BALANCER_PORT
+        value: $PORT
+      - key: SERVER_A_URL
+        value: https://scalable-ai-api-server-a.onrender.com
+      - key: SERVER_B_URL
+        value: https://scalable-ai-api-server-b.onrender.com
+      - key: HEALTH_CHECK_INTERVAL
+        value: 30
+      - key: REQUEST_TIMEOUT
+        value: 30
+      - key: LOG_LEVEL
+        value: INFO
+
+  # Server A Service
+  - type: web
+    name: scalable-ai-api-server-a
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m scalable_ai_api.ai_server.server_runner --server-id "Server A" --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SERVER_ID
+        value: Server A
+      - key: LOG_LEVEL
+        value: INFO
+
+  # Server B Service
+  - type: web
+    name: scalable-ai-api-server-b
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m scalable_ai_api.ai_server.server_runner --server-id "Server B" --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SERVER_ID
+        value: Server B
+      - key: LOG_LEVEL
+        value: INFO
